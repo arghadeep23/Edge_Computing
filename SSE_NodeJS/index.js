@@ -19,14 +19,41 @@ const server = http.createServer((req, res) => {
     let runs = 0;
     let ballsBowled = 0;
     let wicketsTaken = 0;
-    let index = 0;
-
+    let runs1 = 0;
+    let runs2 = 0;
+    let flag = 0;
     const interval = setInterval(() => {
-        if (ballsBowled >= 12 || wicketsTaken >= 10) {
+        if (flag == 1) {
             clearInterval(interval);
-            const finalScore = `Final Score: ${runs}/${wicketsTaken}`;
+            let finalComment;
+            if (runs2 > runs1) {
+                finalComment = `--------Team 2 wins by ${runs2 - runs1} runs--------`;
+            }
+            else if (runs1 > runs2) {
+                finalComment = `--------Team 1 wins by ${runs1 - runs2} runs--------`;
+            }
+            else {
+                finalComment = `--------Match is a draw--------`;
+            }
+            res.write(generateSSEData({ update: finalComment }));
+        }
+        else if (ballsBowled == 13) {
+            runs2 = runs;
+            flag = 1;
+            const finalScore = `--------Team2 Score: ${runs}/${wicketsTaken}--------`;
+            runs = 0;
             res.write(generateSSEData({ update: finalScore }));
-        } else {
+        }
+        else if (ballsBowled == 6) {
+            // team 1 has done its turn
+            runs1 = runs;
+            const finalScore = `--------Team1 Score: ${runs}/${wicketsTaken}--------`;
+            res.write(generateSSEData({ update: finalScore }));
+            runs = 0;
+            wicketsTaken = 0;
+            ballsBowled++;
+        }
+        else {
             const randomIndex = Math.floor(Math.random() * updates.length);
             const data = { update: updates[randomIndex] };
             if (updates[randomIndex].includes('Wicket')) {
