@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+
+#updates-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#updates-list {
+    list-style: none;
+    padding: 0;
+}
+
+#updates-list li {
+    margin-bottom: 10px;
+}

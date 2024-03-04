@@ -3,7 +3,6 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 
-// Define GraphQL schema
 const schema = buildSchema(`
   type Query {
     book(id: Int!): Book
