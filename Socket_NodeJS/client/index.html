@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <h1>Establishing Web Socket Connection</h1> 
+    <div class="main">
+        <div class="box1">
+            <div class="heading">
+                <h3>User 1's Screen</h3>
+            </div>
+            <div class="chat1" id="chat1">
+                <div class="user2" id="user12">
+                    <div class="subheading">
+                        <h4>User 2</h4>
+                    </div>
+                </div>
+                <div class="user1" id="user11">
+                    <div class="subheading">
+                        <h4>User 1</h4>
+                    </div>
+                </div>
+            </div> 
+            <form action="" id="form1">
+                <input type="text" id="message">
+                <button type="submit">Send</button>
+            </form>
+        </div>  
+        <div class="box2">
+            <div class="heading">
+                <h3>User 2's Screen</h3>
+            </div>
+            <div class="chat2">
+                <div class="user1" id="user21">
+                    <div class="subheading">
+                        <h4>User 1</h4>
+                    </div>
+                </div>
+                <div class="user2" id="user22">
+                    <div class="subheading">
+                        <h4>User 2</h4>
+                    </div>
+                </div>
+            </div>
+            <form action="" id="form2">
+                <input type="text" id="message2">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/script.js"></script>
+</body>
+</html>
