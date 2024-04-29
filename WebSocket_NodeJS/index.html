@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Simple Chat Application</h1>
+    <div class="forms">
+        <div class="messageSender">
+            <h1>User : </h1>
+            <div id="messages">
+                <!-- <p class="receive">Hi, how are you?</p>
+                <p class="send">Hi, I'm fine. How are you?</p> -->
+            </div>
+            <form action="" class="bobForm">
+                <input type="text" id="messageInput" placeholder="Type your message...">
+                <button onclick="sendMessage()" type="button">Send</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function () {
+            console.log('Connected to server');
+        };
+
+        ws.onmessage = function (event) {
+            const messagesDiv = document.getElementById('messages');
+            // messagesDiv.innerHTML += `<p>${event.data}</p>`;
+            // creating a new paragraph tag with class name receive
+            const message = document.createElement('p');
+            message.className = 'receive';
+             if (typeof event.data === 'string') {
+                // If it's a string, treat it as a plain text message
+                const message = document.createElement('p');
+                message.className = 'receive';
+                message.innerText = event.data;
+                messagesDiv.appendChild(message);
+            } else if (event.data instanceof Blob) {
+                // If it's a Blob, handle it accordingly
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const message = document.createElement('p');
+                    message.className = 'receive';
+                    message.innerText = reader.result;
+                    messagesDiv.appendChild(message);
+                };
+                reader.readAsText(event.data);
+            }
+        };
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
+            console.log(message);
+            ws.send(message);
+            messageInput.value = '';
+        }
+    </script>
+</body>
+
+</html>

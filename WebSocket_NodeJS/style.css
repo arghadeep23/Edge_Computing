@@ -1,0 +1,19 @@
+.forms{
+    display : flex; 
+    gap : 200px;
+    justify-content: center;
+}
+.messageSender
+{
+    width : 600px; 
+    border : 1px solid black;
+    padding : 80px;
+}
+.receive{
+    /* color : green; */
+    font-weight : bold;
+}
+.send{
+    /* color : blue; */
+    font-weight : bold;
+}
